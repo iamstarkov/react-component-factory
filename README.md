@@ -1,6 +1,7 @@
 # TODO:
 
 * travis
+* coveralls
 * corp-semantic-release
 * contributing.md
 * usage
