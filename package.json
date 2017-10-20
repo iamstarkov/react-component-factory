@@ -1,0 +1,72 @@
+{
+  "name": "react-component-factory",
+  "version": "1.0.0",
+  "description":
+    "React Component factory to create components for isolated test cases (with Preact support)",
+  "main": "dist/cjs",
+  "module": "dist/esm",
+  "files": ["src", "dist"],
+  "scripts": {
+    "precommit": "lint-staged",
+    "lint": "eslint .",
+    "test": "cross-env BABEL_ENV=cjs ava",
+    "tdd": "npm run test -- --watch",
+    "coverage": "cross-env BABEL_ENV=cjs nyc ava",
+    "coveralls": "run-s coveralls:*",
+    "coveralls:gather": "npm run coverage",
+    "coveralls:upload": "coveralls < coverage/lcov.info",
+    "clean": "rimraf dist",
+    "build": "run-s clean babel:*",
+    "babel:cjs":
+      "cross-env BABEL_ENV=cjs babel src -d dist/cjs --ignore '**/*test*'",
+    "babel:esm":
+      "cross-env BABEL_ENV=esm babel src -d dist/esm --ignore '**/*test*'",
+    "watch": "npm-run-all clean -p babel:watch:*",
+    "babel:watch:cjs": "npm run babel:cjs -- --watch",
+    "babel:watch:esm": "npm run babel:esm -- --watch",
+    "format": "prettier --write src/**/*.js"
+  },
+  "lint-staged": {
+    "src/*.js": ["prettier --write", "git add"]
+  },
+  "ava": {
+    "files": ["src/**/*.test.js"],
+    "source": ["src/**/*.js", "!src/**/*.test.js"],
+    "require": ["babel-register"],
+    "babel": "inherit"
+  },
+  "nyc": {
+    "include": ["src"],
+    "exclude": ["src/*test*"],
+    "all": true,
+    "reporter": ["lcov", "text"]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iamstarkov/react-component-factory.git"
+  },
+  "keywords": ["react", "preact", "component", "test", "tests", "tdd"],
+  "author": "Vladimir Starkov <iamstarkov@gmail.com> (https://iamstarkov.com)",
+  "license": "MIT",
+  "homepage": "https://github.com/iamstarkov/react-component-factory#readme",
+  "devDependencies": {
+    "ava": "^0.22.0",
+    "babel-cli": "^6.26.0",
+    "babel-eslint": "^8.0.1",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-register": "^6.26.0",
+    "coveralls": "^2.13.1",
+    "cross-env": "^5.1.0",
+    "eslint": "^4.9.0",
+    "eslint-config-pedant": "^0.10.0",
+    "eslint-config-prettier": "^2.6.0",
+    "eslint-plugin-require-path-exists": "^1.1.7",
+    "husky": "^0.14.3",
+    "lint-staged": "^4.3.0",
+    "npm-run-all": "^4.1.1",
+    "nyc": "^11.2.1",
+    "prettier": "^1.7.4",
+    "rimraf": "^2.6.2"
+  }
+}
