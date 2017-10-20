@@ -1,0 +1,29 @@
+{
+  "env": {
+    "cjs": {
+     "presets": [
+        ["env", {
+          "targets": {
+            "node": 4.0,
+          }
+        }],
+      ],
+      "plugins": [
+        "transform-object-rest-spread"
+      ]
+    },
+    "esm": {
+      "presets": [
+        ["env", {
+          "targets": {
+            "node": 4.0,
+          },
+          "modules": false
+        }],
+      ],
+      "plugins": [
+        "transform-object-rest-spread"
+      ]
+    }
+  }
+}
