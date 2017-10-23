@@ -8,6 +8,8 @@
   "files": ["src", "dist"],
   "scripts": {
     "precommit": "lint-staged",
+    "commit": "git-cz",
+    "commitmsg": "commitlint -e $GIT_PARAMS",
     "lint": "eslint .",
     "test": "cross-env BABEL_ENV=cjs ava",
     "tdd": "npm run test -- --watch",
@@ -25,6 +27,11 @@
     "babel:watch:cjs": "npm run babel:cjs -- --watch",
     "babel:watch:esm": "npm run babel:esm -- --watch",
     "format": "prettier --write src/**/*.js"
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
   },
   "lint-staged": {
     "src/*.js": ["prettier --write", "git add"]
